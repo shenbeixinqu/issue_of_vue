@@ -117,3 +117,41 @@ computed是基于响应性依赖进行缓存的,只有在响应式依赖发生�
 	   watch每次都会执行函数,watch更适合于数据变化时的异步操作			
 ```
 
+#### 复用元素渲染问题
+
+```shell
+#引出: 当实现点击按钮切换input表单时,我们输入上的value,点击按钮切换表单时发现value值还存在,但是input元素切换了
+<span v-if="isUser">
+      <label for="user">用户名</label>
+      <input type="text" placeholder="用户名" id="user" key="user">
+</span>
+<span v-else>
+      <label for="email">邮箱</label>
+      <input type="text" placeholder="邮箱" id="email" key="email">
+</span>
+<button @click="isUser=!isUser">切换类型</button>
+<script> 
+const app = new Vue({
+  el: '#app',
+  data: {
+     isUser: true
+  }
+})
+</script>
+# 原因 
+	1.vue在进行DOM渲染时,出于对性能的考虑,会尽可能复用已经存在的元素,而不是创建新的元素
+	2.上面的案例,vue内部会对比发现两部分都相似只会替换属性,不会创建全新的元素
+	3.上面的if的input不再使用,直接作为else的input使用
+```
+
+#### v-if与v-show
+
+```shell
+v-if 当条件为false时,不会有对应的元素存在DOM中
+v-show当条件为false时,是将元素的display属性设置为none
+在显示和隐藏之间切换很频繁时,使用v-show
+当只有一次切换时,通过使用v-if
+```
+
+
+
