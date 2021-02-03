@@ -255,5 +255,20 @@ promise1()
 
 ```
 
+#### vuex-action的{commit}
+
+```shell
+# vuex中使用action处理异步请求时,常规写法如下
+getMenuAction:(context) => {
+	context.commit('SET_MENU_LIST',['承保1','核保2'])
+}
+# 可以使用简化写法
+action:{
+	getMenuAction:({commit}) => {
+		commit('SET_MENU_LIST',['承保1','核保2'])
+	}
+}
+```
+
 
 
