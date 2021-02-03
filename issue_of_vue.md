@@ -153,5 +153,87 @@ v-show当条件为false时,是将元素的display属性设置为none
 当只有一次切换时,通过使用v-if
 ```
 
+#### 子传父
+
+```shell
+# 子组件
+<template>
+	<button @click="sendNum">给父组件传值</button>
+</template>
+<script>
+	export default {
+		data(){
+			return{
+				num:3
+			}
+		},
+		methods:{
+			sendNum(){
+				this.$emit("myEven", this.num)
+			}
+		}
+	}
+</script>
+
+# 父组件
+<template>
+	<test @myEven="getNum"></test>
+</template>
+<script>
+	export default {
+		methods:{
+			getNum(num){
+				console.log(num)
+			}
+		}
+	}
+</script>
+```
+
+#### 兄弟组件传值(uniapp)
+
+```shell
+# 前提 a组件修改b组件的值
+
+## a组件
+<template>
+	<view>
+		<button @click="addNum"></button>
+	</view>
+</template>
+<script>
+	export default{
+		methods:{
+			addNum(){
+				uni.$emit("updateNum",10)
+			}
+		}
+	}
+</script>
+## b组件
+<template>
+</template>
+<script>
+	export default{
+		data(){
+			return{
+				num:10
+			}
+		},
+		created(){
+			uni.$on("updateNum", num=>{
+				this.num += num
+			})
+		}
+	}
+</script>
+```
+
+#### vuex(状态管理器)
+
+```shell
+https://segmentfault.com/a/1190000015782272
+```
+
 
 
