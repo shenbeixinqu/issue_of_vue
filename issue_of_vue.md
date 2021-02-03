@@ -235,5 +235,25 @@ v-show当条件为false时,是将元素的display属性设置为none
 https://segmentfault.com/a/1190000015782272
 ```
 
+#### Promise的用法
+
+```shell
+# 概括
+Promise对象用于表示一个异步操作的最终状态(完成或失败),以及该异步操作的结果值,一般通过new来实例化,接受一个构造函数有并带两个函数参数,分别表示成功或失败的输出
+# 实例
+function promise1(){
+	# 这里模拟异步动作,一般可以放置ajax请求,'promise-result'为请求成功后的返回结果
+	# Promise实例只能通过resolve或者reject函数来返回,并用then()或者catch()获取
+	# 不能直接在里面return..这样是取不到Promise返回值的
+	return new Promise((resolve,reject) => {
+		setTimeout(() => resove('promise1-result'), 1000)
+	})
+}
+promise1()
+.then(response => console.log(response))
+.catch(error => console.log(error))
+
+```
+
 
 
