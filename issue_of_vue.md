@@ -270,5 +270,162 @@ action:{
 }
 ```
 
+#### vue中的ref用法
+
+```vue
+# 基本用法 本页面获取dom元素
+<template>
+<div id="app">
+    <div ref="testDom">1111</div>
+    <button @click="getTest">获取test节点</button>
+</div>
+</template>
+
+<script>
+	export default{
+        methods: {
+            getTest(){
+                console.log(this.$refs.testDom)
+            }
+        }
+    }
+</script>
+
+# 打印结果  <div>1111</div>
+```
+
+```vue
+# 调用子组件中的data
+### 子组件
+<template>
+<div>
+   {{ msg }}
+</div>
+</template>
+
+<script>
+	export default {
+        data(){
+            return {
+                msg: "hello world"
+            }
+        }
+    }
+</script>
+
+### 父组件
+<template>
+<div id="app">
+    <HelloWorld ref="hello"></HelloWorld>
+    <button @click="getHello">获取helloworld组件中的值</button>
+</div>
+</template>
+
+<script>
+import HelloWorld from "./components/HelloWorld.vue"
+export default{
+    components: {
+        HelloWorld
+    },
+    data(){
+        return{}
+    },
+    methods(){
+        getHello(){
+            console.log(this.$ref.hello.msg)
+        }
+    }   
+}
+</script>
+
+# 打印结果为  hello world
+```
+
+```vue
+# 调用子组件中的方法
+### 子组件
+<template>
+<div>
+</div>
+</template>
+<script>
+	export default {
+        methods:{
+            open(){
+                console.log("调用到了")
+            }
+        }
+    }
+</script>
+
+### 父组件
+<template>
+<div>
+</div>
+</template>
+<template>
+  <div id="app">
+    <HelloWorld ref="hello"/>
+    <button @click="getHello">获取helloworld组件中的值</button>
+  </div>
+</template>
+
+<script>
+import HelloWorld from "./components/HelloWorld.vue";
+
+export default {
+  components: {
+    HelloWorld
+  },
+  data() {
+    return {}
+  },
+  methods: {
+    getHello() {
+      this.$refs.hello.open();
+    }
+  }
+};
+</script>
+## 打印的值   调用到了
+```
+
+#### .sync修饰符用法及原理
+
+```shell
+vue中我们经常会用v-bind(缩写为:)给子组件传入参数。
+或者我们会给子组件传入一个函数，子组件通过调用传入的函数来改变父组件的状态。
+
+//父组件给子组件传入一个函数
+ <MyFooter :age="age" @setAge="(res)=> age = res">
+ </MyFooter>
+ //子组件通过调用这个函数来实现修改父组件的状态。
+ mounted () {
+      console.log(this.$emit('setAge',1234567));
+ }
+ 
+这时子组件触发了父组件的修改函数使父组件的age修改成了1234567
+这种情况比较常见切写法比较复杂。于是我们引出今天的主角 .sync
+这时我们可以直接这样写
+
+//父组件将age传给子组件并使用.sync修饰符。
+<MyFooter :age.sync="age">
+</MyFooter>
+//子组件触发事件
+ mounted () {
+    console.log(this.$emit('update:age',1234567));
+ }
+ 
+这里注意我们的事件名称被换成了update:age
+update：是被固定的也就是vue为我们约定好的名称部分
+age是我们要修改的状态的名称，是我们手动配置的，与传入的状态名字对应起来
+
+这样就完成了，是不是感觉简单了很多。
+
+注意事项：
+这里我们必须在事件执行名称前加上update：的前缀才能正确触发事件。
+ 
+```
+
 
 
