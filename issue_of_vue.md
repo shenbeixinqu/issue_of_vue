@@ -427,5 +427,36 @@ age是我们要修改的状态的名称，是我们手动配置的，与传入�
  
 ```
 
+### vue相关
+
+从0到1自己构架一个vue项目，说说有哪些步骤、哪些重要插件、目录结构你会怎么组织?
+
+```shell
+vue-cli实际上已经很成熟了,目录除了脚手架默认的
+一般会额外创建views,components,api,utils,stores等
+下载重要插件,如axios,dayjs(moment太大),其他的根据项目需求补充
+封装axios,统一api调用风格和基本配置
+如果有国际化需求,配置国际化
+开发,测试和正式环境配置,一般不同环境api接口基础路径会不一样
+```
+
+v-model的原理
+
+```shell
+v-model一个语法糖,实现依靠
+v-bind:绑定响应式数据
+触发input事件 并传递数据(核心重点)
+```
+
+在使用计算属性的时，函数名和data数据源中的数据可以同名吗
+
+```shell
+不可以，同名会报错：The computed property "xxxx" is already defined in data
+不能同名 因为不管是计算属性还是data还是props 都会被挂载在vm实例上，因此 这三个都不能同名
+不可以，因为初始化vm的过程，会先把data绑定到vm,再把computed的值绑定到vm，会把data覆盖了
+```
+
+
+
 
 
