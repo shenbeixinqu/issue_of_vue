@@ -427,6 +427,32 @@ age是我们要修改的状态的名称，是我们手动配置的，与传入�
  
 ```
 
+#### ele popover 点击关闭
+
+```shell
+<el-popover ref="pover">
+	<el-button @click="handleConfirm">确认</el-button>
+</popover>
+
+methods:{
+	handleConfirm(){
+		this.$refs.pover.doClose()
+	}
+}
+```
+
+#### ele popover 增加滚动条
+
+```shell
+在组件中增加(不需要增加class="el-popover")
+.el-popover{
+	height: 100px,
+	overflow: scoll
+}
+```
+
+
+
 ### vue相关
 
 从0到1自己构架一个vue项目，说说有哪些步骤、哪些重要插件、目录结构你会怎么组织?
