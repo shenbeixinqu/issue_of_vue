@@ -516,5 +516,55 @@ v-bind:绑定响应式数据
 
 
 
+### 问题解决
+
+#### 使用淘宝镜像
+
+```shell
+npm install --registry https://registry.npm.taobao.org info underscore
+```
+
+#### es6语法报错
+
+```shell
+npm install babel-plugin-transform-object-rest-spread
+
+根目录下创建 .babelrc文件
+.babelrc文件中写：
+{
+    "presets": [
+        ["es2015", { "modules": false }]
+    ],
+    "plugins": ["transform-object-rest-spread"] //不能解析es6语法关键解决
+}
+```
+
+#### Couldn't find preset "es2015" relative to directory
+
+```shell
+由于引入的 Element-UI 使用了ES标准，所以编译会报错。
+npm install babel-preset-es2015 --save-dev
+```
+
+#### Error: No PostCSS Config found in...
+
+```shell
+在项目根目录新建postcss.config.js文件，并对postcss进行配置：
+
+module.exports = {  
+  plugins: {  
+    'autoprefixer': {browsers: 'last 5 version'}  
+  }  
+} 
+```
+
+#### ERROR in [copy-webpack-plugin] unable to locate '[...]/agora/static' at '[...]/agora/static'
+
+```shell
+查看是否缺失对应的文件夹
+```
+
+
+
 
 
