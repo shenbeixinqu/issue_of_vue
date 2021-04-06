@@ -1,5 +1,11 @@
 ### issue_of_vue
 
+#### 安装
+
+```shell
+npm install --registry=https://registry.npm.taobao.org
+```
+
 #### 生命周期
 
 ```shell
