@@ -16,3 +16,16 @@
 	Vue.use(ElementUI)
 ```
 
+### 使用mockjs
+
+```shell
+1-npm install mockjs --save-dev #安装
+2-在入口js（main.js）里引入mockjs
+```
+
+### 安装axios
+
+```shell
+1-npm install axios --save
+```
+
